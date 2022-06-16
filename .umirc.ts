@@ -17,7 +17,7 @@ export default defineConfig({
     {
       name: '发现音乐',
       path: '/home',
-      component: '@/pages/Home/index',
+      component: './Home/index',
       icon: 'home',
       // 隐藏子菜单
       hideChildrenInMenu: true,
@@ -26,12 +26,12 @@ export default defineConfig({
       routes: [
         {
           path: '/home/recommend',
-          component: '@/pages/Home/Recommend/index',
+          component: './Home/Recommend/index',
           name: '发现音乐'
         },
         {
           path: '/home/mvPlay',
-          component: '@/pages/Home/mvPlay/index',
+          component: './Home/mvPlay/index',
           name: '发现音乐'
         }
       ]
