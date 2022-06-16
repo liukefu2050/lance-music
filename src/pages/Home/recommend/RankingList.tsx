@@ -127,7 +127,6 @@ export default () => {
             indicator={antIcon}
             spinning={loading}
         >
-
             <Row>
                 <Col span={4}>
                     <List
