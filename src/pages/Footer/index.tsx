@@ -39,14 +39,13 @@ export default () => {
   }, [music])
 
   const reloadPlay = () => {
-    console.log('播放结束了。。。。')
     const index = _.findIndex(playList, (item: any) => item.id == music?.id);
     if (index <= playList.length - 1) {
       // setMusic()
       runFetchSongUrl(playList[index + 1].id)
     }
   }
-  
+  // 监听audio播放结束事件自动播放下一首
   useEventListener("ended",reloadPlay,audioRef)
 
   return (
