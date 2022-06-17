@@ -3,13 +3,14 @@ import { useEffect, useState , useRef} from 'react';
 import axios from '@/api/instance';
 import { SONG_URL } from '@/api/api';
 
-import styles from './index.less'
+import  './index.less'
 import { useModel } from '@umijs/max'
 
 export default () => {
 
   const {
-    music
+    music,
+    musicList
   } = useModel('song');
 
   //   const { playObj } = useModel('song');
@@ -32,7 +33,7 @@ export default () => {
   },[music])
 
   return (
-    <Row className={styles.container}>
+    <Row className='container'>
       <Col span={8}></Col>
       <Col span={8}>
         <audio controls autoPlay ref={audioRef}>

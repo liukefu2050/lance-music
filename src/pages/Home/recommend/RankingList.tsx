@@ -41,7 +41,8 @@ export default () => {
     const [loading, setLoading] = useState<boolean>(false)
 
     const {
-        runFetchSongUrl
+        runFetchSongUrl,
+        setTrackIds
     } = useModel('song');
 
     const columns: ColumnsType<DataType> = [
@@ -120,6 +121,17 @@ export default () => {
         }
     }, [topId])
 
+
+    const handlePlayMusic = () => {
+        // 获取所有歌曲的id topSongInfo.trackIds
+        if (topSongInfo) {
+            let tempIds = _.map(topSongInfo.trackIds, (item: any) => item.id);
+            const idString = tempIds.join();
+            runFetchSongUrl(idString)
+            setTrackIds(tempIds || [])
+        }
+    }
+
     return (
         <Spin
             size="large"
@@ -170,7 +182,7 @@ export default () => {
                                     />
                                     <div className={styles.listAction}>
                                         <Space>
-                                            <Button type='primary' icon={<PlayCircleOutlined />}>播放</Button>
+                                            <Button type='primary' onClick={handlePlayMusic} icon={<PlayCircleOutlined />}>播放</Button>
                                             <Button type='primary' icon={<ShareAltOutlined />}>{item.shareCount}</Button>
                                             <Button type='primary' icon={<MessageOutlined />}>{item.commentCount}</Button>
                                         </Space>
