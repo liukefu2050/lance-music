@@ -8,14 +8,9 @@ import { PERSONALIZED, SONG_URL } from '@/api/api';
 export default () => {
 
 
+    const [playList,setPlayList] = useState<any>([])
     const [musicList, setMusicList] = useState<any>([]);
     const [music, setMusic] = useState<any>({});
-    //所有歌曲的id
-    const [trackIds, setTrackIds] = useState<any>([]);
-
-    console.log(trackIds, 'trackIds...')
-
-
 
     // 推荐歌单
     const { data: songList, run: fetchSongList, loading } = useRequest(PERSONALIZED, { manual: true });
@@ -29,8 +24,8 @@ export default () => {
         try {
             const res:any = await instance.get(SONG_URL, { id });
             if (res.code == 200) {
-                console.log(res?.data,'urlList...')
-                setMusicList(res?.data || [])
+                // setMusicList(res?.data || [])
+                // console.log(res?.data,'res?.data...')
                 setMusic(res?.data[0])
             } else {
                 throw new Error("获取数据失败!")
@@ -40,23 +35,20 @@ export default () => {
         }
     }
 
-    console.log(musicList, 'musicList...')
 
+    console.log(playList,'playList..')
 
     useEffect(() => {
         fetchSongList()
     }, []);
 
-    // useEffect(() => {
-    //     if (musicList && musicList.length > 0) {
-    //         setMusic(musicList[0])
-    //     }
-    // }, [musicList])
 
     return {
-        setTrackIds,
         music,
+        playList,
         loading,
+        setMusic,
+        setPlayList,
         runFetchSongUrl,
         songList: songList || [],
     };

@@ -7,9 +7,10 @@ import {
     FolderAddFilled,
     DownloadOutlined,
     LoadingOutlined,
-    PlusOutlined
+    PlusOutlined,
+    PauseCircleOutlined
 } from '@ant-design/icons';
-import { useModel, request } from '@umijs/max'
+import { useModel, request, } from '@umijs/max'
 import type { ColumnsType } from 'antd/lib/table';
 import { TOP_LIST, PLAYLIST_DETAIL } from '@/api/api';
 import { useEffect, useState } from 'react';
@@ -41,8 +42,9 @@ export default () => {
     const [loading, setLoading] = useState<boolean>(false)
 
     const {
+        music,
         runFetchSongUrl,
-        setTrackIds
+        setPlayList
     } = useModel('song');
 
     const columns: ColumnsType<DataType> = [
@@ -58,7 +60,16 @@ export default () => {
             dataIndex: "name",
             key: 'name',
             render: (value, record, index) => <Space>
-                <PlayCircleOutlined onClick={() => runFetchSongUrl(record.key)} style={{ fontSize: 25, color: 'rgb(113,113,113)' }} />
+                <PlayCircleOutlined
+                    onClick={() => runFetchSongUrl(record.key)}
+                    style={{ fontSize: 25, color: 'rgb(113,113,113)' }}
+                    className={classnames({
+                        [styles.isShowPlay]: music && music.id == record.key
+                    })}
+                />
+                {
+                    music && music.id == record.key && <PauseCircleOutlined style={{ fontSize: 25, color: 'rgb(113,113,113)' }} />
+                }
                 <span>{record.name}</span>
             </Space>
         },
@@ -123,12 +134,9 @@ export default () => {
 
 
     const handlePlayMusic = () => {
-        // 获取所有歌曲的id topSongInfo.trackIds
         if (topSongInfo) {
-            let tempIds = _.map(topSongInfo.trackIds, (item: any) => item.id);
-            const idString = tempIds.join();
-            runFetchSongUrl(idString)
-            setTrackIds(tempIds || [])
+            setPlayList(topSongInfo.tracks)
+            runFetchSongUrl(topSongInfo.tracks[0].id)
         }
     }
 

@@ -1,17 +1,23 @@
 import { Row, Col } from 'antd';
-import { useEffect, useState , useRef} from 'react';
-import axios from '@/api/instance';
-import { SONG_URL } from '@/api/api';
+import { useEffect,  useRef} from 'react';
+import { useModel } from '@umijs/max'
+import _ from 'lodash'
 
 import  './index.less'
-import { useModel } from '@umijs/max'
+
+import { useEventListener } from '@/hooks/useEventListener';
 
 export default () => {
 
   const {
     music,
-    musicList
+    playList,
+    setMusic,
+    runFetchSongUrl
   } = useModel('song');
+
+  console.log(music,'music')
+  console.log(playList,'playList')
 
   //   const { playObj } = useModel('song');
 
@@ -19,7 +25,7 @@ export default () => {
   // console.log(music,'music...')
   // const [url, setUrl] = useState<string>("")
 
-  const audioRef = useRef<any>()
+  const audioRef:any = useRef()
   
   useEffect(() => {
     if (music && audioRef.current) {
@@ -30,13 +36,24 @@ export default () => {
       audioRef.current.src = url;
       audioRef.current.play()
     }
-  },[music])
+  }, [music])
+
+  const reloadPlay = () => {
+    console.log('播放结束了。。。。')
+    const index = _.findIndex(playList, (item: any) => item.id == music?.id);
+    if (index <= playList.length - 1) {
+      // setMusic()
+      runFetchSongUrl(playList[index + 1].id)
+    }
+  }
+  
+  useEventListener("ended",reloadPlay,audioRef)
 
   return (
     <Row className='container'>
       <Col span={8}></Col>
       <Col span={8}>
-        <audio controls autoPlay ref={audioRef}>
+        <audio controls autoPlay ref={audioRef} onEnded={reloadPlay}>
           {/* <source src={url} type="audio/mpeg" /> */}
         </audio>
       </Col>
