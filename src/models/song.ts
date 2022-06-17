@@ -11,6 +11,7 @@ export default () => {
     const [playList,setPlayList] = useState<any>([])
     const [musicList, setMusicList] = useState<any>([]);
     const [music, setMusic] = useState<any>({});
+    const [isPlay,setIsPlay] = useState<boolean>(false)
 
     // 推荐歌单
     const { data: songList, run: fetchSongList, loading } = useRequest(PERSONALIZED, { manual: true });
@@ -26,6 +27,7 @@ export default () => {
             if (res.code == 200) {
                 // setMusicList(res?.data || [])
                 // console.log(res?.data,'res?.data...')
+                setIsPlay(true)
                 setMusic(res?.data[0])
             } else {
                 throw new Error("获取数据失败!")
@@ -47,7 +49,9 @@ export default () => {
         music,
         playList,
         loading,
+        isPlay,
         setMusic,
+        setIsPlay,
         setPlayList,
         runFetchSongUrl,
         songList: songList || [],

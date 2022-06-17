@@ -4,8 +4,23 @@
     height: 72px;
     display: flex;
     align-items: center;
+    background-color: rgb(241, 243, 244);
+
+    .audio  {
+        width: 100%;
+        position: relative;
+
+        span{
+            position: absolute;
+            display: block;
+            width: 32px;
+            height: 32px;
+            z-index: 99;
+            left: 8px;
+            top: 21px;
+            background-color: rgb(241, 243, 244);
+        }
+     }
+     
 }
 
-audio:focus{
-    outline:none;
-}
