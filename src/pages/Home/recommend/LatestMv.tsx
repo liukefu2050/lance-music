@@ -68,27 +68,6 @@ export default () => {
                                 // onClick={() => handlePlay(item.id, index)}
                                 />
                             }
-
-                            {/* <Card
-                            hoverable
-                            className="card"
-                            cover={
-                                <img
-                                    alt="example"
-                                    src={item.cover}
-                                    style={{ height: 140 ,width:"100%"}}
-                                />
-                            }
-                            onClick={() => handlePlay(item.id, index)}
-                        >
-                            <Meta title={`${item.artistName}--${item.name}`} />
-                            <PlayCircleOutlined
-                                className={classnames('play', {
-                                    // ['isShowPlay']: selectSong.id == item.id && index == selectSong.index
-                                })}
-                                onClick={() => handlePlay(item.id, index)}
-                            />
-                        </Card> */}
                         </div>
                     ))}
                 </div>

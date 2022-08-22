@@ -25,8 +25,6 @@ export default () => {
         try {
             const res:any = await instance.get(SONG_URL, { id });
             if (res.code == 200) {
-                // setMusicList(res?.data || [])
-                // console.log(res?.data,'res?.data...')
                 setIsPlay(true)
                 setMusic(res?.data[0])
             } else {
