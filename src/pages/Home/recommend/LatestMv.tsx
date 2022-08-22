@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Row, Col, Card, Spin, Typography } from 'antd';
 import _ from 'lodash';
 import { useModel } from '@umijs/max';
@@ -7,7 +7,7 @@ import classnames from 'classnames';
 import { PlayCircleOutlined, LoadingOutlined } from '@ant-design/icons';
 import styles from './styles/LatestMv.less'
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 const { Meta } = Card;
 
@@ -18,6 +18,7 @@ export default () => {
 
 
     const [selectSong, setSelectSong] = useState({ id: '', index: -1 });
+    const [moveId, setMoveId] = useState("")
 
     const {
         catList,
@@ -31,7 +32,15 @@ export default () => {
         runFetchMvInfo(id)
     };
 
-   
+    const handleEnter = (e: any, id: string) => {
+        e.stopPropagation()
+        setMoveId(id)
+    }
+
+    const handleLeave = () => {
+        setMoveId("")
+    }
+
 
     return (
         <div style={{ marginTop: '20px' }}>
@@ -43,14 +52,24 @@ export default () => {
             >
                 <Title level={4}>推荐MV</Title>
                 <div className={styles.list_card}>
-                {catList.map((item: any, index: number) => (
-                    <div key={item.id} className={styles.music_card}>
-                        <img
-                            alt="example"
-                            src={item.cover}
-                            style={{height:'140px'}}
-                        />
-                        {/* <Card
+                    {catList.map((item: any, index: number) => (
+                        <div key={item.id} className={styles.music_card}>
+                            <img
+                                alt="example"
+                                src={item.cover}
+                                onMouseEnter={(e) => handleEnter(e, item.id)}
+                                onMouseLeave={handleLeave}
+                            />
+                            <Text ellipsis style={{ padding: '5px 0', textIndent: '2px' }}>{`${item.artistName}--${item.name}`}</Text>
+                            {
+                                moveId && moveId === item.id && <PlayCircleOutlined
+                                    className={styles.play_icon}
+                                    onMouseEnter={(e) => handleEnter(e, item.id)}
+                                // onClick={() => handlePlay(item.id, index)}
+                                />
+                            }
+
+                            {/* <Card
                             hoverable
                             className="card"
                             cover={
@@ -70,7 +89,7 @@ export default () => {
                                 onClick={() => handlePlay(item.id, index)}
                             />
                         </Card> */}
-                    </div>
+                        </div>
                     ))}
                 </div>
             </Spin>
