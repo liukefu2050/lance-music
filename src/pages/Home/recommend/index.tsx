@@ -11,7 +11,7 @@ import LatestMv from './LatestMv';
 import LatestSong from './LatestSong';
 import RankingList from './RankingList';
 
-export default () => {
+const RecommendPage = () => {
 
 
     // 轮播图的图片地址与跳转链接
@@ -29,7 +29,7 @@ export default () => {
         <div className="innerbox" >
             <Tabs size="large" defaultActiveKey="2">
                 <TabPane tab="个性推荐" key="1">
-                    <div className="swipe" id="swipe">
+                    {/* <div className="swipe" id="swipe">
                         <Carousel autoplay>
                             {
                                 _.map(links, (item: any, index: number) => (
@@ -37,21 +37,10 @@ export default () => {
                                 ))
                             }
                         </Carousel>
-                    </div>
+                    </div> */}
                     {/* 推荐mv */}
                     <LatestMv />
                     <LatestSong />
-                    {/* <div className="pagination">
-                {catList.length > 0 && (
-                  <Pagination
-                    defaultCurrent={1}
-                    current={pageParams.current}
-                    total={total}
-                    onChange={handleNextPage}
-                    showSizeChanger={false}
-                  />
-                )}
-              </div> */}
                 </TabPane>
                 <TabPane tab="排行榜" key="2">
                     <RankingList />
@@ -69,3 +58,5 @@ export default () => {
         </div>
     )
 }
+
+export default RecommendPage

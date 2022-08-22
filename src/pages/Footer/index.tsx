@@ -12,7 +12,7 @@ import styles from './index.less'
 
 import { useEventListener } from '@/hooks/useEventListener';
 
-export default () => {
+ const Footer:React.FC<{}> = () => {
 
   const {
     music,
@@ -128,3 +128,5 @@ export default () => {
     </Row>
   );
 };
+
+export default Footer

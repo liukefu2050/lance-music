@@ -5,7 +5,7 @@ import { useModel } from '@umijs/max';
 import classnames from 'classnames';
 
 import { PlayCircleOutlined, LoadingOutlined } from '@ant-design/icons';
-
+import styles from './styles/LatestMv.less'
 
 const { Title } = Typography;
 
@@ -42,38 +42,37 @@ export default () => {
                 spinning={loading}
             >
                 <Title level={4}>推荐MV</Title>
-
-                <Row gutter={[16, 16]}>
-                    {catList.map((item: any, index: number) => (
-                        <Col key={item.id}>
-                            <Card
-                                hoverable
-                                className="card"
-                                cover={
-                                    <img
-                                        alt="example"
-                                        src={item.cover}
-                                        style={{ height: 200 }}
-                                    />
-                                }
-                                onClick={() => handlePlay(item.id, index)}
-                            >
-                                <Meta title={`${item.artistName}--${item.name}`} />
-                                <PlayCircleOutlined
-                                    className={classnames('play', {
-                                        // ['isShowPlay']: selectSong.id == item.id && index == selectSong.index
-                                    })}
-                                    onClick={() => handlePlay(item.id, index)}
+                <div className={styles.list_card}>
+                {catList.map((item: any, index: number) => (
+                    <div key={item.id} className={styles.music_card}>
+                        <img
+                            alt="example"
+                            src={item.cover}
+                            style={{height:'140px'}}
+                        />
+                        {/* <Card
+                            hoverable
+                            className="card"
+                            cover={
+                                <img
+                                    alt="example"
+                                    src={item.cover}
+                                    style={{ height: 140 ,width:"100%"}}
                                 />
-                                {/* {
-                    selectSong.id == item.id && index == selectSong.index
-                    && <PauseCircleOutlined className='play'
-                      onClick={() => setSelectSong({ id: '', index: -1 })} />
-                  } */}
-                            </Card>
-                        </Col>
+                            }
+                            onClick={() => handlePlay(item.id, index)}
+                        >
+                            <Meta title={`${item.artistName}--${item.name}`} />
+                            <PlayCircleOutlined
+                                className={classnames('play', {
+                                    // ['isShowPlay']: selectSong.id == item.id && index == selectSong.index
+                                })}
+                                onClick={() => handlePlay(item.id, index)}
+                            />
+                        </Card> */}
+                    </div>
                     ))}
-                </Row>
+                </div>
             </Spin>
         </div>
     )

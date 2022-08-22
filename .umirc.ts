@@ -26,7 +26,7 @@ export default defineConfig({
       routes: [
         {
           path: '/home/recommend',
-          component: './Home/Recommend/index',
+          component: '@/pages/Home/recommend/index',
           name: '发现音乐'
         },
         {
